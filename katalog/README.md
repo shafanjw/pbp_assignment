@@ -4,7 +4,7 @@ Link Heroku: [Heroku](https://katalog-shafanajwa.herokuapp.com/katalog)
 
 ## 1. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya
 
-[![pbp.png](https://i.postimg.cc/FFd6Ctyz/pbp.png)](https://postimg.cc/XXWxXzD6)
+[![pbp.png](https://i.postimg.cc/Bb0w1bXz/pbp.png)](https://postimg.cc/jwMhps66)
 
 Client memberi request ke server yang akan diterima oleh url lalu request diteruskan ke Django. Dilanjutkan proses ke views.py yang akan memproses mapping URL di file `urls.py`. Fungsi di `views.py` memanggil query dari models yang ada di `models.py`. Jika sudah selesai diproses, hasil akan dirender dari berkas HTML (template yang sudah ada), lalu response akan diterima kembali oleh Client.
 
