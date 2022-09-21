@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from mywatchlist.models import MyWatchlist
 
 def show_html(request):
-    data = MyWatchlist.objects.all()
+    data= MyWatchlist.objects.all()
     context = {"data": data}
     return render(request, "watchlist.html", context)
 
