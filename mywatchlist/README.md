@@ -31,12 +31,12 @@ selalu mencerminkan dengan data terbaru yang ada di server.
 
 ### HTML
 
-
+[![html.jpg](https://i.postimg.cc/90xL8ngN/html.jpg)](https://postimg.cc/Lg1khNpz)
 
 ### JSON
 
-
+[![json.jpg](https://i.postimg.cc/y6rhGcY5/json.jpg)](https://postimg.cc/WtgJFDZ6)
 
 ### XML
 
-
+[![xml.jpg](https://i.postimg.cc/jSyzC1Q0/xml.jpg)](https://postimg.cc/0z26BcBc)
