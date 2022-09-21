@@ -1,0 +1,113 @@
+[
+    {
+        "model":"mywatchlist.MyWatchlist",
+        "pk":1,
+        "fields":{
+            "title":"Coco",
+            "watched":"YES",
+            "release_date": "22/11/17",
+            "rating": "10",
+            "review": "Heartwarming"
+        }
+},
+{
+        "model":"mywatchlist.MyWatchlist",
+        "pk":2,
+        "fields":{
+            "title":"Black Panther",
+            "watched":"YES",
+            "release_date": "30/10/16",
+            "rating": "9",
+            "review": "Bikin sakit Maag karena harganya mahal."
+        }
+    },
+    {
+        "model":"mywatchlist.MyWatchlist",
+        "pk":3,
+        "fields":{
+            "title":"Despicable Me",
+            "watched":"YES",
+            "release_date": "30/09/15",
+            "rating": "8",
+            "review": "Funny"
+        }
+    },
+    {
+        "model":"mywatchlist.MyWatchlist",
+        "pk":4,
+        "fields":{
+            "title":"Iron Man 3",
+            "watched":"YES",
+            "release_date": "20/10/16",
+            "rating": "6",
+            "review": "Bikin sakit Maag karena harganya mahal."
+        }
+    },
+    {
+        "model":"mywatchlist.MyWatchlist",
+        "pk":5,
+        "fields":{
+            "title":"The Hobbit",
+            "watched":"YES",
+            "release_date": "25/10/02",
+            "rating": "8",
+            "review": "Fantasy"
+        }
+    },
+    {
+        "model":"mywatchlist.MyWatchlist",
+        "pk":6,
+        "fields":{
+            "title":"Little Mermaid",
+            "watched":"YES",
+            "release_date": "20/08/02",
+            "rating": "10",
+            "review": "Fascinating"
+        }
+    },
+    {
+        "model":"mywatchlist.MyWatchlist",
+        "pk":7,
+        "fields":{
+            "title":"Frozen 2",
+            "watched":"YES",
+            "release_date": "17/08/03",
+            "rating": "5",
+            "review": "Bikin sakit Maag karena harganya mahal."
+        }
+    },
+    {
+        "model":"mywatchlist.MyWatchlist",
+        "pk":8,
+        "fields":{
+            "title":"The Fault in Our Stars",
+            "watched":"YES",
+            "release_date": "18/08/06",
+            "rating": "7",
+            "review": "Bikin sakit Maag karena harganya mahal."
+        }
+    },
+    {
+        "model":"mywatchlist.MyWatchlist",
+        "pk":9,
+        "fields":{
+            "title":"Pengabdi Setan",
+            "watched":"YES",
+            "release_date": "12/09/17",
+            "rating": "8",
+            "review": "Bikin sakit Maag karena harganya mahal."
+        }
+    },
+    {
+        "model":"mywatchlist.MyWatchlist",
+        "pk":10,
+        "fields":{
+            "title":"Moana",
+            "watched":"NO",
+            "release_date": "16/09/09",
+            "rating": "9",
+            "review": "Bikin sakit Maag karena harganya mahal."
+        }
+    }
+    
+]

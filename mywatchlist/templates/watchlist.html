@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>PBP Tugas 2</h1>
+
+<!-- {% if watch_more %}
+<p>Selamat, kamu sudah banyak menonton!</p>
+{% else %}
+<p>Wah, kamu masih sedikit menonton!</p>
+{% endif %} -->
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Watched or Not</th>
+    <th>Release Date</th>
+    <th>Rating</th>
+    <th>Review</th>
+  </tr>
+  {% for item in data %}
+  <tr>
+    <td>{{ item.title }}</td>
+    <td>{{ item.watched }}</td>
+    <td>{{ item.release_date }}</td>
+    <td>{{ item.rating }}</td>
+    <td>{{ item.review }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock content %}
