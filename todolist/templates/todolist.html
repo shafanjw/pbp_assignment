@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<title>To Do List {{user.username}}</title>
+{% endblock meta %}
+
+{% block content %}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+
+<style>
+    body{
+        background: rgb(223, 194, 194);
+        background: linear-gradient(90deg, rgb(164, 218, 167) 0%, rgb(15, 165, 115) 34%, rgba(107,111,223,1) 75%, rgb(82, 17, 115) 100%);
+    
+    }
+    table, th{
+      padding: 5px;
+      border: 1px solid black;
+      border-collapse: collapse;
+      width: 100%;
+      height: 20px;
+    }
+    td{
+      padding: 20px;
+      border: 1px solid black;
+      border-collapse: collapse;
+      width: 100%;
+      height: 20px;
+    }
+
+    
+    button{
+        font-family: 'Poppins',sans-serif;
+        margin-bottom: 10px; 
+        background-color: #ffffff;
+        padding: 15px;
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: 5px;
+        cursor: pointer;
+        height: 50px;
+        width: 100%;
+        color: #a8a4c6;
+        text-align: center;
+    }
+  </style>
+
+<table>
+    <thread>
+      <tr style="background-color: rgb(245, 219, 240);">
+        <th >Tanggal</th>
+        <th >Judul</th>
+        <th >Deskripsi</th>
+        <th >Status</th>
+        <th >Pilihan</th>
+      </tr>
+    </thread>
+      {% comment %} Tambahkan data di bawah baris ini {% endcomment %}
+
+      {% for list in list_todo %}
+      <tr style="background-color: rgb(218, 202, 238);" >
+          <td>{{list.date}}</td>
+          <td>{{list.title}}</td>
+          <td>{{list.description}}</td>
+          <td>
+            {% if list.is_finished %}
+                Sudah Selesai
+                {% else %}
+                Belum Selesai
+                {% endif%}
+          </td>
+          <td>
+            <button><a href="{% url 'todolist:delete' list.id %}">Delete</a></button>
+
+            <button><a href="{% url 'todolist:status' list.id %}">Status</a></button>
+          </td>
+      </tr>
+  {% endfor %}
+
+  </table>
+  <button><a href="{% url 'todolist:logout' %}">Logout</a></button>
+  <button><a href="{% url 'todolist:create_task' %}">Tambahkan To Do</a></button>
+
+  {% endblock content %}
