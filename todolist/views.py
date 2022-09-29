@@ -11,12 +11,14 @@ from django.contrib.auth import logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
+
 @login_required(login_url='/todolist/login/')
 def show_todolist(request):
-    todolistObjects = Task.objects.filter(user=request.user) 
-    #retrieve data models
+    todolistObjects = Task.objects.filter(user=request.user)
     context = {
-    'list_todo': todolistObjects,
+        'list_todo': todolistObjects,
+        'userName': request.user,
+        
     }
     return render(request, "todolist.html", context)
 
