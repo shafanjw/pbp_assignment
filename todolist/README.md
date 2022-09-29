@@ -15,3 +15,13 @@ Data yang disubmisi pengguna dapat diakses dengan POST dan setelah itu dicek val
   Agar dapat dirender ke template HTML. Lalu object dilooping agar dapat menampilkan setiap data yg ingin ditampilkan.
 
 ## Penjelasan Cara Implementasi Checklist
+1. Buat aplikasi baru django dengan command startapp todolist
+2. Mendaftarkan path aplikasi todolist pada urls.py di project django saya
+3. Mengatur models.py dan membuat kelas Task yg berisi field yg sesuai yaitu user, date, title, description.
+4. Pada views.py, menambahkan fungsi untuk keperluan login logout dan register, dan juga untuk bonus yaitu mengubah status.
+5. Membuat template html todolist lalu menambahkan username pengguna dengan {{username}} pada context. Membuat beberapa tombol dan input serta table yang berisi data2 todo list.
+6. Membuat addtodo htmll untuk menambahkan task to do list pengguna berupa title dan description
+7. Melakukan migrasi dengan make migrations dan migrate
+8. Mendaftarkan fungsi yang dibuat ke path urls.py dalam direktori app todolist
+9. Melakukan git add, commit, dan lalu push dan lalu app akan terdeploy melalui actions di GitHub pada Heroku
+10. Buat 2 akun pengguna dan tiga dummy data
