@@ -6,6 +6,9 @@
 
 {% block content %}
 
+{% load tailwind_tags %}
+{% tailwind_css %}
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
@@ -13,7 +16,7 @@
 <style>
     body{
         background: rgb(223, 194, 194);
-        background: linear-gradient(90deg, rgb(164, 218, 167) 0%, rgb(15, 165, 115) 34%, rgba(107,111,223,1) 75%, rgb(82, 17, 115) 100%);
+        background: linear-gradient(90deg, rgb(237, 241, 237) 0%, rgb(245, 245, 245) 34%, rgba(107,111,223,1) 75%, rgb(134, 107, 147) 100%);
     
     }
 
@@ -55,7 +58,7 @@
         border-radius: 3px;
         padding: 0 10px;
         margin-top: 8px;
-        font-size: 14px;
+        font-size: 16px;
         font-weight: 300;
     }
 
@@ -65,7 +68,7 @@
         background-color: #ffffff;
         color: #080710;
         padding: 15px;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 600;
         border-radius: 5px;
         cursor: pointer;
@@ -81,39 +84,68 @@
 
 </style>
 
-<div class = "login">
+<div class="bg-auto h-48 w-64" style="background-image: url('https://tailwind.build/placeholders/pictures/office.jpg')"></div>
+    <div class = "h-screen login flex justify-center items-center">
+            <div class="rounded-2xl w-full m-1 flex justify-left">
+            </div>
+            <br>
 
-    <h1>Login</h1>
+            <form method="POST" action="">
+                {% csrf_token %}
+                <table>
+                    <tr>
+                        <div class="mb-10">
+                            <input
+                              type="text"
+                              name="username"
+                              class="form-control block w-full px-4 py-2 text-l font-normal text-gray-700 bg-gray-100 bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                              id="exampleFormControlInput2"
+                              placeholder="Username"
+                            />
+                        </div>
+                    </tr>
+                            
+                    <tr>
+                        <div class="mb-10">
+                            <input
+                              type="password"
+                              name="password"
+                              class="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-gray-100 bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                              id="exampleFormControlInput2"
+                              placeholder="Password"
+                            />
+                        </div>
+                    </tr>
 
-    <form method="POST" action="">
-        {% csrf_token %}
-        <table>
-            <tr>
-                <td>Username: </td>
-                <td><input type="text" name="username" placeholder="Username" class="form-control"></td>
-            </tr>
-                    
-            <tr>
-                <td>Password: </td>
-                <td><input type="password" name="password" placeholder="Password" class="form-control"></td>
-            </tr>
+                    {% if messages %}
+                    {% for message in messages %}
+                    <div class=" text-center font-semibold text-red-600 mb-3 rounded-lg">
+                        <p class="">{{ message }}</p>
+                    </div>
+                    {% endfor %}
+                    {% endif %} 
 
-            <tr>
-                <td></td>
-                <td><input class="btn login_btn" type="submit" value="Login"></td>
-            </tr>
+                    <tr>
+                        <div class="text-center lg:text-center">
+                            <input class="inline-block px-7 py-3 bg-blue-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-400 hover:shadow-lg focus:bg-blue-400 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-400 active:shadow-lg transition duration-150 ease-in-out"
+                            type="submit" value="Login">
+                            <p class="text-sm font-semibold mt-2 pt-1 mb-0">
+                                Belum mempunyai akun? 
+                                <a 
+                                  href="{% url 'todolist:register' %}"
+                                  class="text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out">
+                                  Buat Akun
+                                </a>
+                            </p>
+                        </div>
+                    </tr>
+                </table>
+            </form>
 
-            {% if messages %}
-            <ul>
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}     
-            
-        <p>Don't have an account? <a href="{% url 'todolist:register' %}">Sign Up</a></p>
-        </table>
-    </form>
+
+    </div>
+</div>
+
 
 
 

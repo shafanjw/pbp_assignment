@@ -17,4 +17,3 @@ def show_json(request):
 def show_xml(request):
     data = MyWatchlist.objects.all()
     return HttpResponse(serializers.serialize("xml", data), content_type="application/xml",)
-

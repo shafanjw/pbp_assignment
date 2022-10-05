@@ -17,7 +17,6 @@ def show_todolist(request):
     todolistObjects = Task.objects.filter(user=request.user)
     context = {
         'list_todo': todolistObjects,
-        'userName': request.user,
         
     }
     return render(request, "todolist.html", context)
@@ -48,8 +47,7 @@ def login_user(request):
             return response
         else:
             messages.info(request, 'Username atau Password salah!')
-    context = {}
-    return render(request, 'login.html', context)
+    return render(request, 'login.html')
 
 def logout_user(request):
     logout(request)

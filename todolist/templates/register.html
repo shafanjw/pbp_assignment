@@ -6,6 +6,9 @@
 
 {% block content %} 
 
+{% load tailwind_tags %}
+{% tailwind_css %}
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
@@ -14,12 +17,12 @@
 <style>
     body{
         background: rgb(223, 194, 194);
-        background: linear-gradient(90deg, rgb(164, 218, 167) 0%, rgb(15, 165, 115) 34%, rgba(107,111,223,1) 75%, rgb(82, 17, 115) 100%);
+        background: linear-gradient(90deg, rgb(237, 241, 237) 0%, rgb(245, 245, 245) 34%, rgba(107,111,223,1) 75%, rgb(134, 107, 147) 100%);
     }
     
     form *{
         font-family: 'Poppins',sans-serif;
-        color: #ffffff;
+        color: #010000;
         letter-spacing: 0.5px;
         outline: none;
         border: none;
@@ -34,8 +37,8 @@
     input{
         display: block;
         height: 50px;
-        width: 100%;
-        background-color: rgba(255,255,255,0.07);
+        width: 70%;
+        background-color: rgba(255, 255, 255, 0.644);
         border-radius: 3px;
         padding: 0 10px;
         margin-top: 8px;
@@ -58,31 +61,39 @@
 
 </style>
 
-<div class = "login">
-    
-    <h1>Formulir Registrasi</h1>  
+<div class="bg-auto h-48 w-64" style="background-image: url('https://tailwind.build/placeholders/pictures/office.jpg')"></div>
+    <div class = "h-screen login flex justify-center items-center">
+            <br>
+            
+            <div class=" h-screen login flex justify-center items-center">
+                <h1 class="pb-7 font-bold text-blue-500 text-2xl mt-0.5 mb-1 ml-0.5">Formulir Registrasi</h1>
+            </div> 
 
-        <form method="POST" >  
-            {% csrf_token %}  
-            <table>  
-                {{ form.as_table }}  
-                <tr>  
-                    <td></td>
-                    <td><input type="submit" name="submit" value="Daftar"/></td>  
-                </tr>  
-                <tr>  
-                    <td></td>
-                    <td>Punya akun? <a href="{% url 'todolist:login' %}"> Login</a></td>
-            </table>  
-        </form>
+                <form method="POST" >  
+                    {% csrf_token %}  
+                    <table>  
+                        {{ form.as_table }}  
+                        <tr>  
+                            <td></td>
+                            <td>
 
-    {% if messages %}  
-        <ul>   
-            {% for message in messages %}  
-                <li>{{ message }}</li>  
-                {% endfor %}  
-        </ul>   
-    {% endif %}
+                                    <input class="inline-block bg-indigo-300 text-blue font-medium text-base uppercase rounded shadow-md hover:bg-indigo-300 hover:shadow-lg focus:bg-indigo-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-indigo-300 active:shadow-lg transition duration-150 ease-in-out" type="submit" name="submit" value="Daftar"/>
+                               
+                        </tr>
+                            <td></td>
+                            <td>Punya akun? <a href="{% url 'todolist:login' %}" style="color: rgb(0, 69, 180)"> Login</a></td>
+                    </table>  
+                </form>
+
+            {% if messages %}  
+                <ul>   
+                    {% for message in messages %}  
+                        <li>{{ message }}</li>  
+                        {% endfor %}  
+                </ul>   
+            {% endif %}
+        </div>  
+    </div>  
 
 </div>  
 

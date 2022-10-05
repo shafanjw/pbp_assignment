@@ -5,6 +5,8 @@
 {% endblock meta %}
 
 {% block content %}
+{% load static tailwind_tags %}
+{% tailwind_css %}
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +15,7 @@
 <style>
     body{
         background: rgb(223, 194, 194);
-        background: linear-gradient(90deg, rgb(164, 218, 167) 0%, rgb(15, 165, 115) 34%, rgba(107,111,223,1) 75%, rgb(82, 17, 115) 100%);
+        background: linear-gradient(90deg, rgb(237, 241, 237) 0%, rgb(245, 245, 245) 34%, rgba(107,111,223,1) 75%, rgb(134, 107, 147) 100%);
     
     }
     table, th{
