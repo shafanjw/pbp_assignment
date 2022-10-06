@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
-
+<!-- https://getbootstrap.com/docs/4.3/components/card/ -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js%22%3E"> </script>
 {% block meta %}
 <title>To Do List {{user.username}}</title>
 {% endblock meta %}
 
 {% block content %}
-{% load static tailwind_tags %}
-{% tailwind_css %}
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,19 +25,63 @@
       width: 100%;
       height: 20px;
     }
+    .card {
+    justify-content: center;
+    color: rgb(255, 255, 255);
+    background-color: rgb(100, 27, 92);
+    }
+
+    h4 {
+    font-size: 25px;
+    }
+
+    h5 {
+      justify-content: center;
+      text-align: center;
+      color: rgb(255, 255, 255);
+      font-size: 15px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+
+    h6 {
+      font-size: 12px;
+      margin-top: 7px;
+      margin-bottom: 7px;
+    }
+    .card-body {
+        justify-content: center;
+        text-align: center;
+        background-color: rgb(134, 107, 147);
+        opacity: 0,5;
+    }
+
+    .card-text {
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    .card-font {
+      color: black;
+
+    }
+    .card:hover {
+      transform: translateY(-10px);
+    }
     td{
       padding: 20px;
-      border: 1px solid black;
+      border: 1px solid rgb(19, 19, 19);
       border-collapse: collapse;
       width: 100%;
       height: 20px;
     }
-
-    
     button{
         font-family: 'Poppins',sans-serif;
         margin-bottom: 10px; 
         background-color: #ffffff;
+        border: 1px solid rgb(100, 27, 92);
         padding: 15px;
         font-size: 14px;
         font-weight: 600;
@@ -48,42 +92,52 @@
         color: #a8a4c6;
         text-align: center;
     }
+    .wrapper {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      row-gap: 3px;
+      column-gap: 3px;
+    }
+    .submit:hover {
+    box-shadow: 0 0.5em 0.3em -0.5em var(--hover);
+    transform: translateY(-0.20em);
+    }
   </style>
 
-<table>
-    <thread>
-      <tr style="background-color: rgb(245, 219, 240);">
-        <th >Tanggal</th>
-        <th >Judul</th>
-        <th >Deskripsi</th>
-        <th >Status</th>
-        <th >Pilihan</th>
-      </tr>
-    </thread>
-      {% comment %} Tambahkan data di bawah baris ini {% endcomment %}
+<h5>User Login : {{user}} </h5>
+<body style="background-image: url('https://tailwind.build/placeholders/pictures/office.jpg');">
 
-      {% for list in list_todo %}
-      <tr style="background-color: rgb(218, 202, 238);" >
-          <td>{{list.date}}</td>
-          <td>{{list.title}}</td>
-          <td>{{list.description}}</td>
-          <td>
-            {% if list.is_finished %}
-                Sudah Selesai
-                {% else %}
-                Belum Selesai
-                {% endif%}
-          </td>
-          <td>
-            <button><a href="{% url 'todolist:delete' list.id %}">Delete</a></button>
+    {% comment %} Tambahkan data di bawah baris ini {% endcomment %}
+    <div class="wrapper">
+    {% for list in list_todo %}
 
-            <button><a href="{% url 'todolist:status' list.id %}">Status</a></button>
-          </td>
-      </tr>
-  {% endfor %}
+    <div class="card" style="width: 15rem; margin-right: auto; margin-left: auto; padding-bottom: 20; margin-top: 20px;">
+      <div class="card-body">
+        <h4 class="card-font">{{list.title}}</h4>
+        <h6 class="card-font">{{list.description}}</h6>
+        <p class="card-text">{{list.date}}</p>
+        <form action="{% url 'todolist:status' update_status=list.id %}" method="post">
+          {% csrf_token %}
+          {% if list.is_finished %}
+          <th><button type="submit" class="submit">Sudah Selesai</button>
+          {% else %}
+          <th><button type="submit" class="submit">Belum Selesai</button>
+          {% endif %}
+        </form>
+        <form action="{% url 'todolist:delete' id=list.id %}" method="post">
+          {% csrf_token %}
+          <th><button type="submit" class="submit">Delete</button>
+        </form>
+    </tr>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+<h5>Sesi terakhir login : {{ last_login }}</h5>
+<h5><button type="submit" class="submit"><a href="{% url 'todolist:create_task' %}">Tambahkan To Do</a></button></h5>
+<h5><button type="submit" class="submit"><a href="{% url 'todolist:logout' %}">Logout</a></button></h5>
+</h5>
 
-  </table>
-  <button><a href="{% url 'todolist:logout' %}">Logout</a></button>
-  <button><a href="{% url 'todolist:create_task' %}">Tambahkan To Do</a></button>
+{% endblock content %}
 
-  {% endblock content %}
+</body>
