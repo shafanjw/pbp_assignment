@@ -16,11 +16,11 @@ Salah satu contoh penerapannya pada tugas ini yaitu:
     
 ```js
     <a class="btn login_btn btn btn-danger form-control lg mt-2" onclick="deleteTask(${i.pk})">Hapus</a>
-    ```
+```
     
     Pada kasus ini, saat button Hapus diclick, fungsi deleteTask akan dijalankan untuk menghapus task yang ada dengan menggunakan AJAX request.
 
-2. On #tambahTask submit
+2. On `#tambahTask` submit
     
 ```js
     $(document).on("submit", "#tambahTask", function(e) {
@@ -43,7 +43,7 @@ Salah satu contoh penerapannya pada tugas ini yaitu:
             }
         })
     })
-    ```
+ ```
     Pada saat #tambahTask di-submit, fungsi tersebut akan mencegah laman web melakukan refresh dan melakukan AJAX call untuk membuat task baru.
 
 ## Penerapan asynchronous programming pada AJAX
