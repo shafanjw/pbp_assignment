@@ -12,16 +12,17 @@ Synchronous yaitu operasi dikerjakan secara terurut, apabila suatu pekerjaan dik
 Event-Driven Programming yaitu paradigma dalam pemrograman di mana pekerjaan yang dijalankan tergantung kepada event yang terjadi. Contoh event yang dimaksud yaitu seperti "onClick", "onSubmit", dan lain-lain. Event tersebut dapat dihubungkan dengan fungsi apabila event terjadi.
 
 Salah satu contoh penerapannya pada tugas ini yaitu:
-1. On #Hapus click
+1. On `#Hapus` click
     
-js
+```js
     <a class="btn login_btn btn btn-danger form-control lg mt-2" onclick="deleteTask(${i.pk})">Hapus</a>
+    ```
     
     Pada kasus ini, saat button Hapus diclick, fungsi deleteTask akan dijalankan untuk menghapus task yang ada dengan menggunakan AJAX request.
 
 2. On #tambahTask submit
     
-js
+```js
     $(document).on("submit", "#tambahTask", function(e) {
         e.preventDefault();
         $.ajax ({
@@ -42,7 +43,7 @@ js
             }
         })
     })
-    
+    ```
     Pada saat #tambahTask di-submit, fungsi tersebut akan mencegah laman web melakukan refresh dan melakukan AJAX call untuk membuat task baru.
 
 ## Penerapan asynchronous programming pada AJAX
