@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 <!-- https://getbootstrap.com/docs/4.3/components/card/ -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js%22%3E"> </script>
+
+
 {% block meta %}
 <title>To Do List {{user.username}}</title>
 {% endblock meta %}
@@ -11,6 +11,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js%22%3E"> </script>
+  
 
 <style>
     body{
@@ -105,38 +113,145 @@
   </style>
 
 <h5>User Login : {{user}} </h5>
-<body style="background-image: url('https://tailwind.build/placeholders/pictures/office.jpg');">
 
-    {% comment %} Tambahkan data di bawah baris ini {% endcomment %}
-    <div class="wrapper">
-    {% for list in list_todo %}
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Home</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <div class="card" style="width: 15rem; margin-right: auto; margin-left: auto; padding-bottom: 20; margin-top: 20px;">
-      <div class="card-body">
-        <h4 class="card-font">{{list.title}}</h4>
-        <h6 class="card-font">{{list.description}}</h6>
-        <p class="card-text">{{list.date}}</p>
-        <form action="{% url 'todolist:status' update_status=list.id %}" method="post">
-          {% csrf_token %}
-          {% if list.is_finished %}
-          <th><button type="submit" class="submit">Sudah Selesai</button>
-          {% else %}
-          <th><button type="submit" class="submit">Belum Selesai</button>
-          {% endif %}
-        </form>
-        <form action="{% url 'todolist:delete' id=list.id %}" method="post">
-          {% csrf_token %}
-          <th><button type="submit" class="submit">Delete</button>
-        </form>
-    </tr>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="modal" data-bs-target="#modaladd" href="#">Create Task</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'todolist:logout' %}">Logout</a>
+          </li>
+        </ul>
       </div>
-    </div>
-    {% endfor %}
+    </nav>
+</header>
+
+
+
+<body>
+  <div class="d-flex justify-content-center mt-5 mb-5 text-center">
+      <h1 style="color: white;">To Do List <br>Hello, {{user}}!</h1>
   </div>
-<h5>Sesi terakhir login : {{ last_login }}</h5>
-<h5><button type="submit" class="submit"><a href="{% url 'todolist:create_task' %}">Tambahkan To Do</a></button></h5>
-<h5><button type="submit" class="submit"><a href="{% url 'todolist:logout' %}">Logout</a></button></h5>
-</h5>
+
+  <form action="" method="POST" id="tambahTask">  
+      {% csrf_token %}  
+      <table>  
+          <div class="modal fade" id="modaladd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Create New To Do List</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                      <input class="form-control" type="text" id="title" name="title" placeholder="Title" aria-label="Title" aria-describedby="basic-addon1">
+                      <br>
+                      <input class="form-control" type="text" id="description" name="description" placeholder="Description" aria-label="Description" aria-describedby="basic-addon1">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" id="createBtn">Tambahkan</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+      </table>
+  </form>
+  
+  <div class="row row-cols-md-3 mx-auto justify-content-center" id="container">
+
+  </div>
+</body>
+
+
+
+<h5>Last login session : {{ last_login }}</h5>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    function show_card() {
+        let todolist = "";
+        $.ajax({
+            url: "{% url 'todolist:show_json' %}",
+            type: "GET",
+            dataType: "json",
+            success: function(data){
+                if(data == 0) {
+                    $('#container').html("")
+                }
+                else {
+                    for (i of data){
+                        let statusToDoList = i.fields.is_finished ? "Selesai" : "Belum Selesai";
+                        console.log(data)
+                        todolist += `
+                        <div class="col-auto mb-3">
+                            <div class="card border-primary mx-auto" style="width: 18rem; background-color: rgb(50, 65, 60);">
+                                <div class="card-body text-light">
+                                    <h3 class="card-title">${i.fields.title}</h3>
+                                    <h6 class="card-text">${i.fields.date}</h6>
+                                    <p class="card-text">Deskripsi: ${i.fields.description}</p>
+                                    <p class="card-text">Status: ${statusToDoList}</p>
+                                    <a class="btn login_btn btn btn-secondary form-control lg mt-3" href="status/${i.pk}">Ubah Status</a>
+                                    <a class="btn login_btn btn btn-danger form-control lg mt-2" onclick="deleteTask(${i.pk})">Hapus</a>
+                                </div>
+                            </div>
+                        </div>`;
+                        $('#container').html(todolist)
+                    }
+                }
+            },
+            error: function(data) {
+                console.log('Error')
+            }
+        })
+    }
+
+    function deleteTask(pk){
+        $.ajax({
+            url: `/todolist/deleteTask/${pk}`,
+            type: "DELETE",
+            success: function(data) {
+                console.log(data)
+                $(`#${pk}`).remove()
+                show_card()
+            }
+        })
+    }
+
+    $(document).on("submit", "#tambahTask", function(e) {
+        e.preventDefault();
+        $.ajax ({
+            url: "{% url 'todolist:add_ajax' %}",
+            type: "POST",
+            dataType:"json",
+            data: {
+                title:$("#title").val(),
+                description:$("#description").val(),
+                csrfmiddlewaretoken: "{{ csrf_token }}"
+            },
+            success: function(data) {
+                show_card();
+                const inputs = document.querySelectorAll('#title, #description');
+                inputs.forEach(input => {
+                    input.value = '';
+                });
+            }
+        })
+    })
+
+    $(document).ready(function () {
+        show_card();
+    })
+</script>
 
 {% endblock content %}
 

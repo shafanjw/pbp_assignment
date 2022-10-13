@@ -10,7 +10,9 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-
+from django.core import serializers
+from django.http.response import JsonResponse, HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 
 @login_required(login_url='/todolist/login/')
 def show_todolist(request):
@@ -18,7 +20,6 @@ def show_todolist(request):
     context = {
         'list_todo': todolistObjects,
         'last_login': request.COOKIES['last_login']
-        
     }
     return render(request, "todolist.html", context)
 
@@ -43,7 +44,6 @@ def login_user(request):
         if user is not None:
             login(request, user)
             response = HttpResponseRedirect(reverse("todolist:show_todolist"))
-
             response.set_cookie('last_login', str(datetime.datetime.now()))
             return response
         else:
@@ -70,12 +70,38 @@ def addtodo(request):
 # Do reverse for urls py
 
 def delete(request, id):
-    data = Task.objects.get(id=id)
+    data = Task.objects.filter(user=request.user).get(pk =id)
     data.delete()
-    return HttpResponseRedirect(reverse('todolist:show_todolist'))
+    return redirect('todolist:show_todolist')
 
-def status(request, update_status):
-    data_status = Task.objects.get(id=update_status)
-    data_status.is_finished = True
-    data_status.save()
-    return HttpResponseRedirect(reverse('todolist:show_todolist'))
+def status(request, id):
+    data_status = Task.objects.filter(user=request.user).get(pk=id)
+    if data_status.is_finished == False :
+        data_status.is_finished = True
+        data_status.save()
+    else:
+        data_status.is_finished = False
+        data_status.save()
+    return redirect('todolist:show_todolist')
+
+@login_required(login_url='/todolist/login/')
+def show_json(request):
+    data = Task.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize('json', data), content_type='application/json')
+
+def add_ajax(request):
+    title = request.POST.get('title')
+    description = request.POST.get('description')
+    add_todolist = Task(
+        user = request.user,
+        title = title,
+        description = description,
+    )
+    add_todolist.save()
+    return JsonResponse({"task": "new todolist"},status=200)
+
+@csrf_exempt
+def delete_ajax(request,id):
+    data = Task.objects.filter(pk=id)   
+    data.delete()
+    return JsonResponse({"data": "removed todolist"},status=200)
